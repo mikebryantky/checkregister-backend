@@ -1,5 +1,7 @@
 # Check Register
 
+A simple check book application backend using REST services.
+
 
 ## SpringBoot
  * Make a copy of the __application-development-sample.yaml__ named __application-development.yaml__
@@ -50,6 +52,6 @@ To access Swagger documentation, while running the app go to [http://localhost:8
 ## Misc
 * To deploy, run:
 ```bash
-sudo java -Dspring.profiles.active=production -jar ./target/poc-0.0.1-SNAPSHOT.jar &
+sudo java -Dspring.profiles.active=production -jar ./target/checkregister-backend.jar &
 ```
 
