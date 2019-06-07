@@ -1,0 +1,35 @@
+
+
+logging:
+  file: logs/checregister.log
+  level:
+    ROOT: WARN
+    org.springframework: ERROR
+    com.mikebryant: DEBUG
+
+
+spring.output.ansi.enabled: detect
+
+
+info:
+  app:
+    name: Checkbook Register
+    description: Checkbook Register backend services.
+    version: 0.1
+    tosUrl:
+    license:
+    licenseUrl:
+    contact:
+      name:
+      url:
+      email:
+
+
+management:
+  health:
+    diskspace:
+      enabled: true
+  endpoints:
+    enabled-by-default: true
+
+

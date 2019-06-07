@@ -1,0 +1,21 @@
+
+
+
+
+---
+spring:
+  datasource:
+    url: ${DATASOURCE_URL:}
+    username: ${DATASOURCE_USERNAME:}
+    password: ${DATASOURCE_PASSWORD:}
+
+    dbcp2:
+      driver-class-name: com.mysql.jdbc.Driver
+      test-on-borrow: true
+      validation-query: SELECT 1
+      max-total: 5
+
+  jpa:
+    properties:
+      show-sql: true
+
