@@ -1,5 +1,6 @@
 package com.mikebryant.checkregister.data.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -10,6 +11,7 @@ import java.util.Objects;
 
 @Entity
 @Data
+@JsonInclude(JsonInclude.Include.ALWAYS)
 public class Transaction {
 
     @Id
