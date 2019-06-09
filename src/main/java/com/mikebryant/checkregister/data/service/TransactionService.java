@@ -4,6 +4,7 @@ import com.mikebryant.checkregister.data.model.Transaction;
 import com.mikebryant.checkregister.data.repository.TransactionRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -28,7 +29,7 @@ public class TransactionService {
     }
 
     public List<Transaction> getAll() {
-        return repository.findAll();
+        return repository.findAll(Sort.by(Sort.Direction.DESC, "txDate"));
     }
 
     public void delete (String uuid) {

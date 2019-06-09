@@ -23,7 +23,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -63,7 +65,7 @@ public class TransactionTests {
     }
 
     @Test
-    public void addTransactionType() throws Exception {
+    public void addTransaction() throws Exception {
         TransactionType transactionType = transactionTypeService.get(TransactionType.WITHDRAWAL);
         TransactionCategory transactionCategory = transactionCategoryService.getForTransactionType(transactionType).get(0);
         TransactionMethod transactionMethod = transactionMethodService.getAll().get(0);
@@ -74,7 +76,7 @@ public class TransactionTests {
         transaction.setTransactionMethod(transactionMethod);
         transaction.setCheckNumber("101");
         transaction.setDescription("Test Description");
-        transaction.setTxDate(LocalDateTime.now());
+        transaction.setTxDate(LocalDate.of(2019, Month.AUGUST, 12));
         transaction.setWithdrawalAmount(-100.05);
         transaction.setNotes("Test Note");
 
@@ -89,13 +91,15 @@ public class TransactionTests {
                 .andExpect(jsonPath("$.transactionMethod.uuid").value(transactionMethod.getUuid()))
                 .andExpect(jsonPath("$.checkNumber").value(transaction.getCheckNumber()))
                 .andExpect(jsonPath("$.description").value(transaction.getDescription()))
-                .andExpect(jsonPath("$.txDate").value(transaction.getTxDate()))
+                .andExpect(jsonPath("$.txDate").value("2019-08-12"))
                 .andExpect(jsonPath("$.withdrawalAmount").value(transaction.getWithdrawalAmount()))
                 .andExpect(jsonPath("$.checkNumber").value(transaction.getCheckNumber()))
                 .andExpect(jsonPath("$.notes").value(transaction.getNotes()))
+                .andExpect(jsonPath("$.reconciledDate").isEmpty())
+                .andExpect(jsonPath("$.depositAmount").isEmpty())
                 .andDo(print())
                 .andReturn();
-    }
+}
 
 
 //    @Test

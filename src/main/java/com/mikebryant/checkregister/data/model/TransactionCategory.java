@@ -5,7 +5,11 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,14 +21,15 @@ public class TransactionCategory {
     @GenericGenerator(name = "system-uuid", strategy = "uuid2")
     private String uuid;
 
+    @NotEmpty(message = "Description is required.")
     private String description;
 
-    @OneToMany(mappedBy = "transactionCategory")
-    @JsonIgnore
-    private Collection<Transaction> transactions;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "transaction_type_uuid", referencedColumnName = "uuid", nullable = false)
+    @NotNull(message = "Transaction type is required.")
     private TransactionType transactionType;
 
+    @OneToMany(mappedBy = "transactionCategory", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Transaction> transactions = new ArrayList<>();
 }

@@ -3,6 +3,7 @@ package com.mikebryant.checkregister.data.service;
 import com.mikebryant.checkregister.data.model.TransactionType;
 import com.mikebryant.checkregister.data.repository.TransactionTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -25,7 +26,7 @@ public class TransactionTypeService {
     }
 
     public List<TransactionType> getAll() {
-        return repository.findAll();
+        return repository.findAll(Sort.by(Sort.Direction.ASC, "description"));
     }
 
     public void delete(String uuid) {
