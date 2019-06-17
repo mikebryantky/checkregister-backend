@@ -1,0 +1,60 @@
+// Sent
+{
+   "uuid":null,
+   "txDate":"2019-06-07T21:20:14.022",
+   "description":"Test Description",
+   "checkNumber":"101",
+   "depositAmount":null,
+   "withdrawalAmount":-100.05,
+   "reconciledDate":null,
+   "notes":"Test Note",
+   "transactionType":{
+      "uuid":"32b1e209-ee18-4340-b00c-b6fa64a80e33",
+      "description":"Withdrawal",
+      "color":"#ff5733"
+   },
+   "transactionMethod":{
+      "uuid":"b71b33bf-6326-4ad5-88d9-e72a86f34ef9",
+      "description":"Cash"
+   },
+   "transactionCategory":{
+      "uuid":"12c91278-92b0-48db-8168-9134a7c8caa6",
+      "description":"Auto",
+      "transactionType":{
+         "uuid":"32b1e209-ee18-4340-b00c-b6fa64a80e33",
+         "description":"Withdrawal",
+         "color":"#ff5733"
+      }
+   }
+}
+
+
+// Returned
+{
+   "uuid":"b928783d-1b0a-4f64-9ca8-1ee0084149aa",
+   "txDate":"2019-06-07T21:22:13.547",
+   "description":"Test Description",
+   "checkNumber":"101",
+   "depositAmount":null,
+   "withdrawalAmount":-100.05,
+   "reconciledDate":null,
+   "notes":"Test Note",
+   "transactionType":{
+      "uuid":"32b1e209-ee18-4340-b00c-b6fa64a80e33",
+      "description":"Withdrawal",
+      "color":"#ff5733"
+   },
+   "transactionMethod":{
+      "uuid":"b71b33bf-6326-4ad5-88d9-e72a86f34ef9",
+      "description":"Cash"
+   },
+   "transactionCategory":{
+      "uuid":"12c91278-92b0-48db-8168-9134a7c8caa6",
+      "description":"Auto",
+      "transactionType":{
+         "uuid":"32b1e209-ee18-4340-b00c-b6fa64a80e33",
+         "description":"Withdrawal",
+         "color":"#ff5733"
+      }
+   }
+}

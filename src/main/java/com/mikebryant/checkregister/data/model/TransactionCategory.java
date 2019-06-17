@@ -24,11 +24,6 @@ public class TransactionCategory {
     @NotEmpty(message = "Description is required.")
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "transaction_type_uuid", referencedColumnName = "uuid", nullable = false)
-    @NotNull(message = "Transaction type is required.")
-    private TransactionType transactionType;
-
     @OneToMany(mappedBy = "transactionCategory", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Transaction> transactions = new ArrayList<>();

@@ -59,7 +59,6 @@ public class TransactionCategoryTests {
 
         TransactionCategory transactionCategory = new TransactionCategory();
         transactionCategory.setDescription("New Test TransactionCategory");
-        transactionCategory.setTransactionType(transactionType);
 
         mockMvc.perform(post("/transactionCategory")
                 .contentType("application/json;charset=UTF-8")
@@ -68,7 +67,6 @@ public class TransactionCategoryTests {
                 .andExpect(status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.uuid").isNotEmpty())
                 .andExpect(jsonPath("$.description").value(transactionCategory.getDescription()))
-                .andExpect(jsonPath("$.transactionType.uuid").value(transactionType.getUuid()))
                 .andDo(print())
                 .andReturn();
     }
@@ -82,7 +80,6 @@ public class TransactionCategoryTests {
 
         TransactionCategory transactionCategory = new TransactionCategory();
         transactionCategory.setDescription(description);
-        transactionCategory.setTransactionType(transactionType);
         transactionCategory = service.save(transactionCategory);
 
         assertNotNull(transactionCategory.getUuid());
@@ -100,7 +97,6 @@ public class TransactionCategoryTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.uuid").value(originalUuid))
                 .andExpect(jsonPath("$.description").value(newDescripton))
-                .andExpect(jsonPath("$.transactionType.uuid").value(transactionType.getUuid()))
                 .andDo(print())
                 .andReturn();
     }
@@ -113,7 +109,6 @@ public class TransactionCategoryTests {
 
         TransactionCategory transactionCategory = new TransactionCategory();
         transactionCategory.setDescription(description);
-        transactionCategory.setTransactionType(transactionType);
         transactionCategory = service.save(transactionCategory);
 
         mockMvc.perform(delete("/transactionCategory/" + transactionCategory.getUuid()))
@@ -134,7 +129,6 @@ public class TransactionCategoryTests {
         for(int i=1; i<=newNumberTransactionCategories; i++) {
             TransactionCategory transactionCategory = new TransactionCategory();
             transactionCategory.setDescription(i + " " + description);
-            transactionCategory.setTransactionType(transactionType);
             service.save(transactionCategory);
         }
 

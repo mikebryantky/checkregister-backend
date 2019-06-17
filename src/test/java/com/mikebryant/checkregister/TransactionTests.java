@@ -67,7 +67,7 @@ public class TransactionTests {
     @Test
     public void addTransaction() throws Exception {
         TransactionType transactionType = transactionTypeService.get(TransactionType.WITHDRAWAL);
-        TransactionCategory transactionCategory = transactionCategoryService.getForTransactionType(transactionType).get(0);
+        TransactionCategory transactionCategory = transactionCategoryService.getAll().get(0);
         TransactionMethod transactionMethod = transactionMethodService.getAll().get(0);
 
         Transaction transaction = new Transaction();

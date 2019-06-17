@@ -34,8 +34,4 @@ public class TransactionType {
     @JsonIgnore
     private List<Transaction> transactions = new ArrayList<>();
 
-    @OneToMany(mappedBy = "transactionType", fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<TransactionCategory> transactionCategories = new ArrayList<>();
-
 }

@@ -1,11 +1,8 @@
 package com.mikebryant.checkregister.data.service;
 
 import com.mikebryant.checkregister.data.model.TransactionCategory;
-import com.mikebryant.checkregister.data.model.TransactionType;
 import com.mikebryant.checkregister.data.repository.TransactionCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -28,12 +25,9 @@ public class TransactionCategoryService {
     }
 
     public List<TransactionCategory> getAll() {
-        return repository.findAll(Sort.by(Sort.Direction.ASC, "transactionType.description"));
+        return repository.findAll();
     }
 
-    public List<TransactionCategory> getForTransactionType(TransactionType transactionType) {
-        return repository.findByTransactionTypeUuid(transactionType.getUuid());
-    }
 
     public void delete(String uuid) {
         repository.deleteById(uuid);
