@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Slf4j
@@ -50,4 +52,16 @@ public class TransactionController {
         return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
     }
 
+    @CrossOrigin
+    @RequestMapping(
+            value = "/balance",
+            method = RequestMethod.GET,
+            produces = "application/json")
+    public ResponseEntity<Map<String, Double>> getBalance() {
+        Map<String, Double> balanceData = new HashMap<>();
+        balanceData.put("reconciled", service.getReconciledBalance());
+        balanceData.put("unreconciled", service.getUnreconciledBalance());
+
+        return new ResponseEntity<>(balanceData, HttpStatus.OK);
+    }
 }

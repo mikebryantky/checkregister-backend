@@ -9,6 +9,7 @@ import com.mikebryant.checkregister.data.service.TransactionCategoryService;
 import com.mikebryant.checkregister.data.service.TransactionMethodService;
 import com.mikebryant.checkregister.data.service.TransactionService;
 import com.mikebryant.checkregister.data.service.TransactionTypeService;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +27,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.ZoneId;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -60,7 +62,7 @@ public class TransactionTests {
 
 
     @Before
-    public void setup() throws Exception {
+    public void setup() {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
@@ -92,14 +94,94 @@ public class TransactionTests {
                 .andExpect(jsonPath("$.checkNumber").value(transaction.getCheckNumber()))
                 .andExpect(jsonPath("$.description").value(transaction.getDescription()))
                 .andExpect(jsonPath("$.txDate").value("2019-08-12"))
-                .andExpect(jsonPath("$.withdrawalAmount").value(transaction.getAmount()))
+                .andExpect(jsonPath("$.amount").value(transaction.getAmount()))
                 .andExpect(jsonPath("$.checkNumber").value(transaction.getCheckNumber()))
                 .andExpect(jsonPath("$.notes").value(transaction.getNotes()))
                 .andExpect(jsonPath("$.reconciledDate").isEmpty())
-                .andExpect(jsonPath("$.depositAmount").isEmpty())
+                .andExpect(jsonPath("$.amount").value(-100.05))
                 .andDo(print())
                 .andReturn();
 }
+
+
+
+    @Test
+    public void testBalance() {
+        TransactionType depositTransactionType = transactionTypeService.get(TransactionType.DEPOSIT);
+        TransactionType withdrawalTransactionType = transactionTypeService.get(TransactionType.WITHDRAWAL);
+
+        TransactionCategory transactionCategory = transactionCategoryService.getAll().get(0);
+        TransactionMethod transactionMethod = transactionMethodService.getAll().get(0);
+
+
+        // 100 + 100 + -50 in Reconciled transactions
+        Transaction transaction = new Transaction();
+        transaction.setTransactionType(depositTransactionType);
+        transaction.setTransactionCategory(transactionCategory);
+        transaction.setTransactionMethod(transactionMethod);
+        transaction.setCheckNumber("101");
+        transaction.setDescription("Test Description");
+        transaction.setTxDate(LocalDate.now(ZoneId.systemDefault()));
+        transaction.setAmount(100.00);
+        transaction.setNotes("Test Note");
+        transaction.setReconciledDate(LocalDate.now(ZoneId.systemDefault()));
+        transactionService.save(transaction);
+
+        transaction = new Transaction();
+        transaction.setTransactionType(depositTransactionType);
+        transaction.setTransactionCategory(transactionCategory);
+        transaction.setTransactionMethod(transactionMethod);
+        transaction.setCheckNumber("102");
+        transaction.setDescription("Test Description");
+        transaction.setTxDate(LocalDate.now(ZoneId.systemDefault()));
+        transaction.setAmount(100.00);
+        transaction.setNotes("Test Note");
+        transaction.setReconciledDate(LocalDate.now(ZoneId.systemDefault()));
+        transactionService.save(transaction);
+
+        transaction = new Transaction();
+        transaction.setTransactionType(withdrawalTransactionType);
+        transaction.setTransactionCategory(transactionCategory);
+        transaction.setTransactionMethod(transactionMethod);
+        transaction.setCheckNumber("101");
+        transaction.setDescription("Test Description");
+        transaction.setTxDate(LocalDate.now(ZoneId.systemDefault()));
+        transaction.setAmount(-50.00);
+        transaction.setNotes("Test Note");
+        transaction.setReconciledDate(LocalDate.now(ZoneId.systemDefault()));
+        transactionService.save(transaction);
+
+
+        // 100 +  -50 in UNreconciled transactions
+        transaction = new Transaction();
+        transaction.setTransactionType(depositTransactionType);
+        transaction.setTransactionCategory(transactionCategory);
+        transaction.setTransactionMethod(transactionMethod);
+        transaction.setDescription("Test Description");
+        transaction.setTxDate(LocalDate.now(ZoneId.systemDefault()));
+        transaction.setAmount(100.00);
+        transaction.setNotes("Test Note");
+        transactionService.save(transaction);
+
+        transaction = new Transaction();
+        transaction.setTransactionType(withdrawalTransactionType);
+        transaction.setTransactionCategory(transactionCategory);
+        transaction.setTransactionMethod(transactionMethod);
+        transaction.setDescription("Test Description");
+        transaction.setTxDate(LocalDate.now(ZoneId.systemDefault()));
+        transaction.setAmount(-50.00);
+        transaction.setNotes("Test Note");
+        transactionService.save(transaction);
+
+
+        Double unreconciledBalance = transactionService.getUnreconciledBalance();
+        Assert.assertEquals(new Double("50.00"), unreconciledBalance);
+
+        Double reconciledBalance = transactionService.getReconciledBalance();
+        Assert.assertEquals(new Double("150.00"), reconciledBalance);
+    }
+
+
 
 
 //    @Test

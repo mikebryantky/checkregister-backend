@@ -29,7 +29,7 @@ public class Transaction {
 
     private String checkNumber;
 
-    @NotEmpty(message = "Amount is required.")
+    @NotNull(message = "Amount is required.")
     private Double amount;
 
     @JsonFormat(pattern = "yyyy-MM-dd")

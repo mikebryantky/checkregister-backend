@@ -1,6 +1,9 @@
 
 
 spring:
+  jpa:
+    show-sql: true
+
   datasource:
     url: jdbc:mysql://localhost:3306/checkregister
     username: root
@@ -12,7 +15,6 @@ spring:
       validation-query: SELECT 1
       max-total: 1
 
-  jpa:
-    show-sql: true
+
 
 

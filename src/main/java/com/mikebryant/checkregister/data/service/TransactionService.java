@@ -32,8 +32,15 @@ public class TransactionService {
         return repository.findAll(Sort.by(Sort.Direction.DESC, "txDate"));
     }
 
-    public void delete (String uuid) {
+    public void delete(String uuid) {
         repository.deleteById(uuid);
     }
 
+    public Double getUnreconciledBalance() {
+        return repository.getUnreconciledBalance();
+    }
+
+    public Double getReconciledBalance() {
+        return repository.getReconciledBalance();
+    }
 }

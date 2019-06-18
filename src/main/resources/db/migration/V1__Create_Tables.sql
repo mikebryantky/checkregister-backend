@@ -100,4 +100,7 @@ create index transaction_category_index
 create index transaction_txdate_index
     on transaction (tx_date);
 
+create index transaction_amount_index
+    on transaction (amount);
+
 
