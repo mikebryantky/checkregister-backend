@@ -19,7 +19,7 @@ public class TransactionVerificationService {
         List<String> errors = new ArrayList<>();
 
         if (TransactionType.WITHDRAWAL.equals(transaction.getTransactionType().getUuid())) {
-            if (transaction.getDepositAmount() > 0) {
+            if (transaction.getAmount() > 0) {
                 errors.add("Deposit amount is not allowed if transaction is a withdrawal.");
             }
 
@@ -29,7 +29,7 @@ public class TransactionVerificationService {
                 errors.add("Check number is required when paying by check.");
             }
         } else if (TransactionType.DEPOSIT.equals(transaction.getTransactionType().getUuid())) {
-            if (transaction.getWithdrawalAmount() > 0) {
+            if (transaction.getAmount() > 0) {
                 errors.add("Withdrawal amount is not allowed if transaction is a deposit.");
             }
         }

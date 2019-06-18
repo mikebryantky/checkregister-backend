@@ -29,11 +29,8 @@ public class Transaction {
 
     private String checkNumber;
 
-    @PositiveOrZero(message = "Deposit amount cannot be negative.")
-    private Double depositAmount;
-
-    @NegativeOrZero(message = "Withdrawal amount cannot be positive.")
-    private Double withdrawalAmount;
+    @NotEmpty(message = "Amount is required.")
+    private Double amount;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate reconciledDate;

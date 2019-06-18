@@ -77,7 +77,7 @@ public class TransactionTests {
         transaction.setCheckNumber("101");
         transaction.setDescription("Test Description");
         transaction.setTxDate(LocalDate.of(2019, Month.AUGUST, 12));
-        transaction.setWithdrawalAmount(-100.05);
+        transaction.setAmount(-100.05);
         transaction.setNotes("Test Note");
 
         mockMvc.perform(post("/transaction")
@@ -92,7 +92,7 @@ public class TransactionTests {
                 .andExpect(jsonPath("$.checkNumber").value(transaction.getCheckNumber()))
                 .andExpect(jsonPath("$.description").value(transaction.getDescription()))
                 .andExpect(jsonPath("$.txDate").value("2019-08-12"))
-                .andExpect(jsonPath("$.withdrawalAmount").value(transaction.getWithdrawalAmount()))
+                .andExpect(jsonPath("$.withdrawalAmount").value(transaction.getAmount()))
                 .andExpect(jsonPath("$.checkNumber").value(transaction.getCheckNumber()))
                 .andExpect(jsonPath("$.notes").value(transaction.getNotes()))
                 .andExpect(jsonPath("$.reconciledDate").isEmpty())

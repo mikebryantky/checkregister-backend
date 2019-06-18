@@ -38,7 +38,7 @@
    "depositAmount":null,
    "withdrawalAmount":-100.05,
    "reconciledDate":null,
-   "notes":"Test Note",
+   "notes":"Test Note test",
    "transactionType":{
       "uuid":"32b1e209-ee18-4340-b00c-b6fa64a80e33",
       "description":"Withdrawal",
