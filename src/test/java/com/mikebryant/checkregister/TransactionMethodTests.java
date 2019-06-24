@@ -5,6 +5,7 @@ import com.mikebryant.checkregister.data.model.TransactionMethod;
 import com.mikebryant.checkregister.data.service.TransactionMethodService;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,7 +112,6 @@ public class TransactionMethodTests {
     @Test
     public void listTransactionMethods() throws Exception {
         String description = "List Test TransactionMethod";
-        String color = "Red";
 
         int originalNumberTransactionMethods = service.getAll().size();
         int newNumberTransactionMethods = 10;

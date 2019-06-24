@@ -5,6 +5,7 @@ import com.mikebryant.checkregister.data.model.TransactionType;
 import com.mikebryant.checkregister.data.service.TransactionTypeService;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class TransactionTypeTests {
     private MockMvc mockMvc;
 
     @Autowired
+    private CacheRefreshService cacheRefreshService;
+
+    @Autowired
     private WebApplicationContext webApplicationContext;
 
     @Autowired
@@ -47,6 +51,8 @@ public class TransactionTypeTests {
 
     @Before
     public void setup() throws Exception {
+        cacheRefreshService.clearAll();
+
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
@@ -132,6 +138,8 @@ public class TransactionTypeTests {
         }
 
         int totalNumberTransactionTypes = originalNumberTransactionTypes + newNumberTransactionTypes;
+
+//        cacheRefreshService.populateCache();
 
         mockMvc.perform(get("/transactionType")
                 .accept(MediaType.APPLICATION_JSON))

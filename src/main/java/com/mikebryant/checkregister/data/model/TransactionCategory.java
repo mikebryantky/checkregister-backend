@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.Objects;
 
 @Entity
 @Data
-public class TransactionCategory {
+public class TransactionCategory implements Serializable {
 
     @Id
     @GeneratedValue(generator = "system-uuid")

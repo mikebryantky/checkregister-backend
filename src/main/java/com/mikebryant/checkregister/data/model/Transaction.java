@@ -7,13 +7,14 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
 @Data
-public class Transaction {
+public class Transaction implements Serializable {
 
     @Id
     @GeneratedValue(generator = "system-uuid")

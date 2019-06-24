@@ -103,8 +103,6 @@ public class TransactionTests {
                 .andReturn();
 }
 
-
-
     @Test
     public void testBalance() {
         TransactionType depositTransactionType = transactionTypeService.get(TransactionType.DEPOSIT);
@@ -180,33 +178,4 @@ public class TransactionTests {
         Double reconciledBalance = transactionService.getReconciledBalance();
         Assert.assertEquals(new Double("150.00"), reconciledBalance);
     }
-
-
-
-
-//    @Test
-//    public void listTransactionTypes() throws Exception {
-//        String description = "List Test TransactionType";
-//        String color = "Red";
-//
-//        int originalNumberTransactionTypes = service.getAll().size();
-//        int newNumberTransactionTypes = 10;
-//        for(int i=1; i<=newNumberTransactionTypes; i++) {
-//            TransactionType transactionType = new TransactionType();
-//            transactionType.setDescription(i + " " + description);
-//            transactionType.setColor(i + " " + color);
-//            service.save(transactionType);
-//        }
-//
-//        int totalNumberTransactionTypes = originalNumberTransactionTypes + newNumberTransactionTypes;
-//
-//        mockMvc.perform(get("/transactionType")
-//                .accept(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andExpect(jsonPath("$").isArray())
-//                .andExpect(jsonPath("$.length()").value(totalNumberTransactionTypes))
-//                .andDo(print())
-//                .andReturn();
-//    }
-
 }

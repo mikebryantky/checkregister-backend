@@ -7,6 +7,7 @@ import com.mikebryant.checkregister.data.service.TransactionCategoryService;
 import com.mikebryant.checkregister.data.service.TransactionTypeService;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,6 @@ public class TransactionCategoryTests {
     @Autowired
     private TransactionCategoryService service;
 
-    @Autowired
-    private TransactionTypeService transactionTypeService;
 
     @Before
     public void setup() throws Exception {
@@ -55,8 +54,6 @@ public class TransactionCategoryTests {
 
     @Test
     public void addTransactionCategory() throws Exception {
-        TransactionType transactionType = transactionTypeService.getAll().get(0);
-
         TransactionCategory transactionCategory = new TransactionCategory();
         transactionCategory.setDescription("New Test TransactionCategory");
 
@@ -71,11 +68,8 @@ public class TransactionCategoryTests {
                 .andReturn();
     }
 
-
     @Test
     public void updateTransactionCategory() throws Exception {
-        TransactionType transactionType = transactionTypeService.getAll().get(0);
-
         String description = "Update Test TransactionCategory";
 
         TransactionCategory transactionCategory = new TransactionCategory();
@@ -103,8 +97,6 @@ public class TransactionCategoryTests {
 
     @Test(expected = EntityNotFoundException.class)
     public void deleteTransactionCategory() throws Exception {
-        TransactionType transactionType = transactionTypeService.getAll().get(0);
-
         String description = "Delete Test TransactionCategory";
 
         TransactionCategory transactionCategory = new TransactionCategory();
@@ -119,9 +111,7 @@ public class TransactionCategoryTests {
     }
 
     @Test
-    public void listTransactionCategorys() throws Exception {
-        TransactionType transactionType = transactionTypeService.getAll().get(0);
-
+    public void listTransactionCategories() throws Exception {
         String description = "List Test TransactionCategory";
 
         int originalNumberTransactionCategories = service.getAll().size();

@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Objects;
 
 @Entity
 @Data
-public class TransactionMethod {
+public class TransactionMethod implements Serializable {
 
     public static final String CHECK = "b71b33bf-6326-4ad5-88d9-e72a86f34ef9";
 
