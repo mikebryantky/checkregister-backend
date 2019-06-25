@@ -73,16 +73,16 @@ public class CacheConfiguration extends CachingConfigurerSupport {
         return redisTemplate;
     }
 
-    @Bean
-    public KeyGenerator keyGenerator() {
-        return new KeyGenerator() {
-            @Override
-            public Object generate(Object target, Method method, Object... params) {
-                return target.getClass().getSimpleName() + "_"
-                        + method.getName() + "_"
-                        + StringUtils.join(params, "_");
-            }
-        };
-    }
+//    @Bean
+//    public KeyGenerator keyGenerator() {
+//        return new KeyGenerator() {
+//            @Override
+//            public Object generate(Object target, Method method, Object... params) {
+//                return target.getClass().getSimpleName() + "_"
+//                        + method.getName() + "_"
+//                        + StringUtils.join(params, "_");
+//            }
+//        };
+//    }
 
 }
