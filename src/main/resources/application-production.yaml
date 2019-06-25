@@ -4,6 +4,11 @@
 
 ---
 spring:
+  redis:
+    port: ${REDIS_PORT:}
+    host: ${REDIS_HOST:}
+    password: ${REDIS_PASSWORD:}
+
   datasource:
     url: ${DATASOURCE_URL:}
     username: ${DATASOURCE_USERNAME:}
