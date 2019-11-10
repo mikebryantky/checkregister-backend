@@ -4,6 +4,10 @@
 
 ---
 spring:
+  cache:
+    redis:
+      cache-null-values: false
+      time-to-live: 60000
   redis:
     port: ${REDIS_PORT:}
     host: ${REDIS_HOST:}
