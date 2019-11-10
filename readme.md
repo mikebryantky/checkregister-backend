@@ -27,7 +27,11 @@ To create a backup of the MySQL database, run:
 mysqldump --complete-insert --lock-all-tables --extended-insert=false --default-character-set=utf8 -uxxUSERxx -pxxPASSxx your_db_name | gzip -9 > your_db_name.sql.gz
 ```
   
-  
+
+## Redis
+**NOTE:** You must have access to a Redis server, or mock via Redis Mock or some other emulator.
+
+
 
 ## Maven
 * To clean: __mvn clean__
