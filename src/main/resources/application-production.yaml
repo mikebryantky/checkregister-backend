@@ -12,6 +12,7 @@ spring:
     port: ${REDIS_PORT:}
     host: ${REDIS_HOST:}
     password: ${REDIS_PASSWORD:}
+    timeout: ${REDIS_TIMEOUT:1000}
 
   datasource:
     url: ${DATASOURCE_URL:}

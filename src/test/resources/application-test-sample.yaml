@@ -5,6 +5,7 @@ spring:
   redis:
     port: 6379
     host: localhost
+    timeout: 1000
 
   datasource:
     url: jdbc:mysql://localhost:3306/db_name

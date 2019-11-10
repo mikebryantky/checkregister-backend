@@ -34,6 +34,10 @@ public class CacheConfiguration extends CachingConfigurerSupport {
     @Value("${spring.redis.password:}")
     private String password;
 
+    @Value("${spring.redis.timeout:1000}")
+    private Long timeout;
+
+
 
     @Bean
     public RedisTemplate<?, ?> redisTemplate() {
@@ -56,7 +60,7 @@ public class CacheConfiguration extends CachingConfigurerSupport {
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
         LettuceClientConfiguration lettuceClientConfiguration = LettuceClientConfiguration.builder()
-                .commandTimeout(Duration.ofMillis(5000))
+                .commandTimeout(Duration.ofMillis(timeout))
                 .build();
 
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(host, port);
@@ -71,18 +75,5 @@ public class CacheConfiguration extends CachingConfigurerSupport {
     public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
         return RedisCacheManager.create(redisConnectionFactory);
     }
-
-
-//    @Bean
-//    public KeyGenerator keyGenerator() {
-//        return new KeyGenerator() {
-//            @Override
-//            public Object generate(Object target, Method method, Object... params) {
-//                return target.getClass().getSimpleName() + "_"
-//                        + method.getName() + "_"
-//                        + StringUtils.join(params, "_");
-//            }
-//        };
-//    }
 
 }
