@@ -29,7 +29,6 @@ public class TransactionCategoryService {
         return repository.save(entity);
     }
 
-//    @Cacheable(value = "transactionCategory")
     public List<TransactionCategory> getAll() {
         return repository.findAll();
     }
