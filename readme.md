@@ -32,7 +32,7 @@ mysqldump --complete-insert --lock-all-tables --extended-insert=false --default-
 
 ## Redis
 The unit tests use an embedded Redis server tp simulate a Redis instance. For development and production profiles, you
-must have an actual Redis server running.
+must have an actual Redis server running.  I suggest running Redis in [Docker](https://hub.docker.com/_/redis).
 
 
 
