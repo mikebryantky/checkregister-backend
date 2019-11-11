@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 import redis.embedded.RedisServer;
 
 @TestConfiguration
-@Configuration
 public class TestRedisConfiguration {
     private RedisServer redisServer;
 
