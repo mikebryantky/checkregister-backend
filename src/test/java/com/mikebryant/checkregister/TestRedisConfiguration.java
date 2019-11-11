@@ -4,9 +4,11 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Configuration;
 import redis.embedded.RedisServer;
 
 @TestConfiguration
+@Configuration
 public class TestRedisConfiguration {
     private RedisServer redisServer;
 
