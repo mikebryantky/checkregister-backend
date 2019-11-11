@@ -4,7 +4,6 @@
 logs/
 
 /src/main/resources/application-development.yaml
-/src/test/resources/application-test.yaml
 
 
 .idea
