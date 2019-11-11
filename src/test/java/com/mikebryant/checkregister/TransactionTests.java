@@ -35,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = CheckregisterBackendApplication.class)
+@SpringBootTest(classes = {CheckregisterBackendApplication.class, TestRedisConfiguration.class})
 @WebAppConfiguration
 @Transactional
 public class TransactionTests {

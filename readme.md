@@ -1,5 +1,7 @@
 # Check Register
 
+[![Codeship Status for mikebryantky/checkregister-backend](https://app.codeship.com/projects/76dfffa0-e647-0137-a879-266a1520ddda/status?branch=master)](https://app.codeship.com/projects/373572)
+
 A simple check book application backend using REST services.
 
 
@@ -29,7 +31,8 @@ mysqldump --complete-insert --lock-all-tables --extended-insert=false --default-
   
 
 ## Redis
-**NOTE:** You must have access to a Redis server, or mock via Redis Mock or some other emulator.
+The unit tests use an embedded Redis server tp simulate a Redis instance. For development and production profiles, you
+must have an actual Redis server running.
 
 
 
