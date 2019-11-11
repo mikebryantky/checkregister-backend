@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -25,17 +26,23 @@ public class TransactionTypeService {
         return entity.orElseThrow(() -> new EntityNotFoundException("No Transaction Type found with uuid " + uuid));
     }
 
-    @CachePut(value = "transactionType")
-    public TransactionType save(TransactionType entity) {
-        return repository.save(entity);
-    }
-
-//    @Cacheable(value = "transactionType")
+    @Cacheable(value = "transactionTypeAll")
     public List<TransactionType> getAll() {
         return repository.findAll(Sort.by(Sort.Direction.ASC, "description"));
     }
 
-    @CacheEvict(value = "transactionType", key = "#uuid")
+    @Caching(evict = {
+            @CacheEvict(value = "transactionType", key = "#entity.uuid"),
+            @CacheEvict(value = "transactionTypeAll", allEntries = true)
+    })
+    public TransactionType save(TransactionType entity) {
+        return repository.save(entity);
+    }
+
+    @Caching(evict = {
+            @CacheEvict(value = "transactionType", key = "#uuid"),
+            @CacheEvict(value = "transactionTypeAll", allEntries = true)
+    })
     public void delete(String uuid) {
         repository.deleteById(uuid);
     }
