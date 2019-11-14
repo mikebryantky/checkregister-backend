@@ -1,17 +1,16 @@
 
-spring:
-  redis:
-    port: 6379
-    host: localhost
-    timeout: 1000
 
+---
+spring:
   datasource:
-    url: jdbc:h2:mem:testdb;MODE=MySQL;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false;CASE_INSENSITIVE_IDENTIFIERS=TRUE;DATABASE_TO_LOWER=TRUE;INIT=CREATE SCHEMA IF NOT EXISTS PUBLIC
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:tc:mysql:5.7.22://localhost:3306/checkregister
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+
+    dbcp2:
+      driver-class-name: com.mysql.jdbc.Driver
+      test-on-borrow: true
+      validation-query: SELECT 1
+      max-total: 1
 
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
-

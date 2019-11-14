@@ -1,5 +1,14 @@
 package com.mikebryant.checkregister;
 
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.ZoneId;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.mikebryant.checkregister.config.JsonMarshaller;
 import com.mikebryant.checkregister.data.model.Transaction;
 import com.mikebryant.checkregister.data.model.TransactionCategory;
@@ -24,18 +33,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.time.ZoneId;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {CheckregisterBackendApplication.class, TestRedisConfiguration.class})
+@SpringBootTest(classes = CheckregisterBackendApplication.class)
 @WebAppConfiguration
 @Transactional
 public class TransactionTests {
@@ -87,7 +86,7 @@ public class TransactionTests {
                 .content(jsonMarshaller.marshal(transaction))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.uuid").isNotEmpty())
+                .andExpect(jsonPath("$.uuid").isNotEmpty())
                 .andExpect(jsonPath("$.transactionCategory.uuid").value(transactionCategory.getUuid()))
                 .andExpect(jsonPath("$.transactionType.uuid").value(transactionType.getUuid()))
                 .andExpect(jsonPath("$.transactionMethod.uuid").value(transactionMethod.getUuid()))
@@ -101,7 +100,7 @@ public class TransactionTests {
                 .andExpect(jsonPath("$.amount").value(-100.05))
                 .andDo(print())
                 .andReturn();
-}
+    }
 
     @Test
     public void testBalance() {

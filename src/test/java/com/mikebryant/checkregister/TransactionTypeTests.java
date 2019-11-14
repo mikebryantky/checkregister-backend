@@ -1,11 +1,21 @@
 package com.mikebryant.checkregister;
 
+import javax.persistence.EntityNotFoundException;
+
+import static org.junit.Assert.assertNotNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.mikebryant.checkregister.config.JsonMarshaller;
 import com.mikebryant.checkregister.data.model.TransactionType;
 import com.mikebryant.checkregister.data.service.TransactionTypeService;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +29,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import javax.persistence.EntityNotFoundException;
-
-import static org.junit.Assert.assertNotNull;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = CheckregisterBackendApplication.class)
 @WebAppConfiguration
@@ -35,9 +36,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class TransactionTypeTests {
 
     private MockMvc mockMvc;
-
-    @Autowired
-    private CacheRefreshService cacheRefreshService;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
@@ -51,8 +49,6 @@ public class TransactionTypeTests {
 
     @Before
     public void setup() throws Exception {
-        cacheRefreshService.clearAll();
-
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
     }
 
@@ -130,7 +126,7 @@ public class TransactionTypeTests {
 
         int originalNumberTransactionTypes = service.getAll().size();
         int newNumberTransactionTypes = 10;
-        for(int i=1; i<=newNumberTransactionTypes; i++) {
+        for (int i = 1; i <= newNumberTransactionTypes; i++) {
             TransactionType transactionType = new TransactionType();
             transactionType.setDescription(i + " " + description);
             transactionType.setColor(i + " " + color);
@@ -138,8 +134,6 @@ public class TransactionTypeTests {
         }
 
         int totalNumberTransactionTypes = originalNumberTransactionTypes + newNumberTransactionTypes;
-
-//        cacheRefreshService.populateCache();
 
         mockMvc.perform(get("/transactionType")
                 .accept(MediaType.APPLICATION_JSON))

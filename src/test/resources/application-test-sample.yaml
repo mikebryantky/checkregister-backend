@@ -1,16 +1,12 @@
 
 
+#For tests, Mock Redis and use Docker container for MySQL
+
 ---
 spring:
-  redis:
-    port: 6379
-    host: localhost
-    timeout: 1000
-
   datasource:
-    url: jdbc:mysql://localhost:3306/db_name
-    username: user
-    password: pass
+    url: jdbc:tc:mysql:5.7.22://localhost:3306/checkregister
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
 
     dbcp2:
       driver-class-name: com.mysql.jdbc.Driver
@@ -20,4 +16,5 @@ spring:
 
   jpa:
     show-sql: true
+
 

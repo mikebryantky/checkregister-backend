@@ -1,49 +1,31 @@
-package com.mikebryant.checkregister.config;
-
-import java.time.Duration;
+package com.mikebryant.checkregister;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Value;
+import org.mockito.Mockito;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.redis.connection.RedisPassword;
-import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
-import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
+import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-@Profile("!test")
+@Profile("test")
 @Configuration
 @EnableCaching
-public class CacheConfiguration extends CachingConfigurerSupport {
-
-    @Value("${spring.redis.host}")
-    private String host;
-
-    @Value("${spring.redis.port}")
-    private Integer port;
-
-    @Value("${spring.redis.password:}")
-    private String password;
-
-    @Value("${spring.redis.timeout:1000}")
-    private Long timeout;
-
+public class TestCacheConfiguration extends CachingConfigurerSupport {
 
     @Bean
     @SuppressWarnings("unchecked")
     public RedisTemplate<?, ?> redisTemplate() {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setConnectionFactory(redisConnectionFactory());
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
@@ -59,16 +41,11 @@ public class CacheConfiguration extends CachingConfigurerSupport {
 
     @Bean
     public LettuceConnectionFactory redisConnectionFactory() {
-        LettuceClientConfiguration lettuceClientConfiguration = LettuceClientConfiguration.builder()
-                .commandTimeout(Duration.ofMillis(timeout))
-                .build();
+        LettuceConnectionFactory factory = Mockito.mock(LettuceConnectionFactory.class);
+        RedisConnection connection = Mockito.mock(RedisConnection.class);
+        Mockito.when(factory.getConnection()).thenReturn(connection);
 
-        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration(host, port);
-        if (!StringUtils.isBlank(password)) {
-            redisStandaloneConfiguration.setPassword(RedisPassword.of(password));
-        }
-
-        return new LettuceConnectionFactory(redisStandaloneConfiguration, lettuceClientConfiguration);
+        return factory;
     }
 
 }
