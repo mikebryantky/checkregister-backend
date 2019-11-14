@@ -1,5 +1,0 @@
-version: 0.0
-os: linux
-files:
-  - source: ./checkregister.jar
-    destination: /tmp
