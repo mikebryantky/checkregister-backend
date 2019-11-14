@@ -1,4 +1,4 @@
-package com.mikebryant.checkregister;
+package com.mikebryant.checkregister.config;
 
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.mikebryant.checkregister;
+package com.mikebryant.checkregister.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
