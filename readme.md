@@ -9,19 +9,22 @@ A simple check book application backend using REST services.
  * Make a copy of the __application-development-sample.yaml__ named __application-development.yaml__
  * Edit the  __application-development.yaml__ file so that the db_name, user, and passwords match your environment.
  * Make a copy of the __application-test-sample.yaml__ named __application-test.yaml__
- * Edit the  __application-test.yaml__ file so that the db_name, user, and passwords match your environment.
+ * *ONLY if you don't want to use docker and/or Mock Redis:* Edit the  __application-test.yaml__ file so that the 
+   db_name, user, and password (MySQL) and host, port, and password (Redis) match your environment.
  
   
  
 ## MySQL
 **NOTE:** Be sure that that empty database schema is created prior to running. Flyway migrations will not create
-MySQL databases.
+MySQL databases. The unit tests use Docker with [Testcontainers](https://www.testcontainers.org/) to run MySQL, so Docker
+must be installed and running for unit tests to complete. See note above about application-test.yaml if you want to 
+run unit tests against an actual (non-Docker) database.
 
  Example:
 ```sql
 CREATE DATABASE your_db_name
-  CHARACTER SET utf8
-  COLLATE utf8_general_ci;
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_general_ci;
 ```
 
 To create a backup of the MySQL database, run:
@@ -31,8 +34,8 @@ mysqldump --complete-insert --lock-all-tables --extended-insert=false --default-
   
 
 ## Redis
-The unit tests use an embedded Redis server tp simulate a Redis instance. For development and production profiles, you
-must have an actual Redis server running.  I suggest running Redis in [Docker](https://hub.docker.com/_/redis).
+The unit tests use Mockito to emulate RedisTemplate.  For development and production, an actual Redis server is needed. 
+See note above about application-test.yaml if you want to run unit tests against an actual Redis instance.
 
 
 
