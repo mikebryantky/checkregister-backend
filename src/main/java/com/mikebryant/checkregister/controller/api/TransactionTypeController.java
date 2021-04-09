@@ -1,7 +1,7 @@
-package com.mikebryant.checkregister.controller;
+package com.mikebryant.checkregister.controller.api;
 
-import com.mikebryant.checkregister.data.model.TransactionCategory;
-import com.mikebryant.checkregister.data.service.TransactionCategoryService;
+import com.mikebryant.checkregister.data.model.TransactionType;
+import com.mikebryant.checkregister.data.service.TransactionTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,18 +13,18 @@ import java.util.List;
 
 @RestController
 @Slf4j
-public class TransactionCategoryController {
+public class TransactionTypeController {
 
     @Autowired
-    private TransactionCategoryService service;
+    private TransactionTypeService service;
 
 
     @CrossOrigin
     @RequestMapping(
-            value = "/transactionCategory",
+            value = "/transactionType",
             method = RequestMethod.POST,
             produces = "application/json")
-    public ResponseEntity<TransactionCategory> add(@Valid @RequestBody TransactionCategory transactionType) {
+    public ResponseEntity<TransactionType> add(@Valid @RequestBody TransactionType transactionType) {
         transactionType = service.save(transactionType);
 
         return new ResponseEntity<>(transactionType, HttpStatus.CREATED);
@@ -32,10 +32,10 @@ public class TransactionCategoryController {
 
     @CrossOrigin
     @RequestMapping(
-            value = "/transactionCategory",
+            value = "/transactionType",
             method = RequestMethod.PUT,
             produces = "application/json")
-    public ResponseEntity<TransactionCategory> update(@Valid @RequestBody TransactionCategory transactionType) {
+    public ResponseEntity<TransactionType> update(@Valid @RequestBody TransactionType transactionType) {
         transactionType = service.save(transactionType);
 
         return new ResponseEntity<>(transactionType, HttpStatus.OK);
@@ -43,32 +43,33 @@ public class TransactionCategoryController {
 
     @CrossOrigin
     @RequestMapping(
-            value = "/transactionCategory/{uuid}",
+            value = "/transactionType/{uuid}",
             method = RequestMethod.GET,
             produces = "application/json")
-    public ResponseEntity<TransactionCategory> get(@PathVariable String uuid) {
-        TransactionCategory transactionType = service.get(uuid);
+    public ResponseEntity<TransactionType> get(@PathVariable String uuid) {
+        TransactionType transactionType = service.get(uuid);
 
         return new ResponseEntity<>(transactionType, HttpStatus.OK);
     }
 
     @CrossOrigin
     @RequestMapping(
-            value = "/transactionCategory",
+            value = "/transactionType",
             method = RequestMethod.GET,
             produces = "application/json")
-    public ResponseEntity<List<TransactionCategory>> getAll() {
-        List<TransactionCategory> transactionTypes = service.getAll();
+    public ResponseEntity<List<TransactionType>> getAll() {
+        List<TransactionType> transactionTypes = service.getAll();
 
         return new ResponseEntity<>(transactionTypes, HttpStatus.OK);
     }
 
     @CrossOrigin
     @RequestMapping(
-            value = "/transactionCategory/{uuid}",
+            value = "/transactionType/{uuid}",
             method = RequestMethod.DELETE,
             produces = "application/json")
     public ResponseEntity<String> delete(@PathVariable String uuid) {
+        log.debug("Delete transactionType: " + uuid);
         service.delete(uuid);
 
         return new ResponseEntity<>(" { \"status\": \"OK\" } ", HttpStatus.OK);

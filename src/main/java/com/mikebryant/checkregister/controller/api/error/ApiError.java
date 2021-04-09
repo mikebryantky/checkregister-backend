@@ -1,4 +1,4 @@
-package com.mikebryant.checkregister.error;
+package com.mikebryant.checkregister.controller.api.error;
 
 import java.util.ArrayList;
 import java.util.List;

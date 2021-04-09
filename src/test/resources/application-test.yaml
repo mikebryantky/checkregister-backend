@@ -5,12 +5,10 @@ spring:
   datasource:
     url: jdbc:tc:mysql:5.7.22://localhost:3306/checkregister
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    hikari:
+      initialization-fail-timeout: 60000
+      login-timeout: 60000
 
-    dbcp2:
-      driver-class-name: com.mysql.jdbc.Driver
-      test-on-borrow: true
-      validation-query: SELECT 1
-      max-total: 1
 
   jpa:
     show-sql: true

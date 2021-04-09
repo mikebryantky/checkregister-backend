@@ -1,4 +1,4 @@
-package com.mikebryant.checkregister.controller;
+package com.mikebryant.checkregister.controller.api;
 
 import com.mikebryant.checkregister.data.model.TransactionMethod;
 import com.mikebryant.checkregister.data.service.TransactionMethodService;

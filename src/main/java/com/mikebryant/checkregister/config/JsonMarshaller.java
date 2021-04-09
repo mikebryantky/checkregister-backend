@@ -14,42 +14,44 @@ import java.util.List;
 @Component
 @Slf4j
 public class JsonMarshaller {
-    @Autowired
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
+
+    public JsonMarshaller(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
 
     public String marshal(Object object) {
         String json = "";
-
         try {
             json = objectMapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            log.warn(e.getMessage(), e);
+            log.info(e.getMessage(), e);
         }
 
         return json;
     }
 
-    public Object unmarshal(String json, Class<?> clazz) {
+    public <T extends Object> T unmarshal(String json, Class<?> clazz) {
         Object object = null;
 
         try {
             object = objectMapper.readValue(json, clazz);
         } catch (IOException e) {
-            log.warn(e.getMessage(), e);
+            log.info(e.getMessage(), e);
         }
 
-        return object;
+        return (T) object;
     }
 
-    List<Object> unmarshalList(String json, Class<?> clazz) {
-        List<Object> objects = new ArrayList<>();
+    public <T> List<T> unmarshalList(String json, Class<?> clazz) {
+        List<T> objects = new ArrayList<>();
 
         CollectionType type = objectMapper.getTypeFactory().constructCollectionType(List.class, clazz);
         try {
             objects = objectMapper.readValue(json, type);
         } catch (IOException e) {
-            log.warn(e.getMessage(), e);
+            log.info(e.getMessage(), e);
         }
 
         return objects;
