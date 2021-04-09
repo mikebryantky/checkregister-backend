@@ -1,4 +1,4 @@
-package com.mikebryant.checkregister.error;
+package com.mikebryant.checkregister.controller.api.error;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
