@@ -1,6 +1,8 @@
 # Check Register
 
+<!--
 [![Codeship Status for mikebryantky/checkregister-backend](https://app.codeship.com/projects/76dfffa0-e647-0137-a879-266a1520ddda/status?branch=master)](https://app.codeship.com/projects/373572)
+-->
 
 A simple check book application backend using REST services.
 
