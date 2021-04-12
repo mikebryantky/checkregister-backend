@@ -57,8 +57,10 @@ public class TransactionCategoryController {
             value = "/transactionCategory",
             method = RequestMethod.GET,
             produces = "application/json")
-    public ResponseEntity<List<TransactionCategory>> getAll() {
-        List<TransactionCategory> transactionTypes = service.getAll();
+    public ResponseEntity<List<TransactionCategory>> getAll(
+            @RequestParam(required = false, value = "all") boolean all) {
+
+        List<TransactionCategory> transactionTypes = all ? service.getAll() : service.getAllActive();
 
         return new ResponseEntity<>(transactionTypes, HttpStatus.OK);
     }

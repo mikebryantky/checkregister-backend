@@ -25,6 +25,9 @@ public class TransactionCategory implements Serializable {
     @NotEmpty(message = "Description is required.")
     private String description;
 
+    private boolean activeInd;
+    private int  sortOrder;
+
     @OneToMany(mappedBy = "transactionCategory", fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Transaction> transactions = new ArrayList<>();

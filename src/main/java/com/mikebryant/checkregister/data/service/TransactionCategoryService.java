@@ -27,12 +27,18 @@ public class TransactionCategoryService {
 
     @Cacheable(value = "transactionCategoryAll")
     public List<TransactionCategory> getAll() {
-        return repository.findAll();
+        return repository.findAllByOrderBySortOrder();
+    }
+
+    @Cacheable(value = "transactionCategoryAllByActiveIndIsTrueOrderBySortOrder")
+    public List<TransactionCategory> getAllActive() {
+        return repository.findAllByActiveIndIsTrueOrderBySortOrder();
     }
 
     @Caching(evict = {
             @CacheEvict(value = "transactionCategory", key = "#entity.uuid"),
-            @CacheEvict(value = "transactionCategoryAll", allEntries = true)
+            @CacheEvict(value = "transactionCategoryAll", allEntries = true),
+            @CacheEvict(value = "transactionCategoryAllByActiveIndIsTrueOrderBySortOrder", allEntries = true)
     })
     public TransactionCategory save(TransactionCategory entity) {
         return repository.save(entity);
@@ -40,7 +46,8 @@ public class TransactionCategoryService {
 
     @Caching(evict = {
             @CacheEvict(value = "transactionCategory", key = "#uuid"),
-            @CacheEvict(value = "transactionCategoryAll", allEntries = true)
+            @CacheEvict(value = "transactionCategoryAll", allEntries = true),
+            @CacheEvict(value = "transactionCategoryAllByActiveIndIsTrueOrderBySortOrder", allEntries = true)
     })
     public void delete(String uuid) {
         repository.deleteById(uuid);
