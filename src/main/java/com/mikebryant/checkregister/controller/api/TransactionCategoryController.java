@@ -60,6 +60,11 @@ public class TransactionCategoryController {
     public ResponseEntity<List<TransactionCategory>> getAll(
             @RequestParam(required = false, value = "all") boolean all) {
 
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         List<TransactionCategory> transactionTypes = all ? service.getAll() : service.getAllActive();
 
         return new ResponseEntity<>(transactionTypes, HttpStatus.OK);
